@@ -29,17 +29,23 @@ var upload = multer({ storage: storage })
 
 
 // the scrolarship api 
-router.post('/uploads', upload.single('profile'), insertFile)
+
+router.post('/insertScholarship', upload.single('profile'), insertScholarship)
+router.get('/getScholarship', getscholarshipDetail)
+router.put('/updateScholarship/:id', upload.single('profile'), updateScholarship)
+router.delete('/deleteScholarship/:id', deleteScholarship)
 
 
-// the upload file
-function insertFile (req, res) {
+
+// insert scholarship detail
+
+function insertScholarship (req, res) {
   if (!req.file) {
     console.log('=============== file is not match =============')
   } else {
     console.log('==================controller request file  =========', req.file)
     console.log('==================controller body content  =========', req.body)
-    scholarshipServices.fileUploaded(req.file, req.body).then((data) => {
+    scholarshipServices.insertScholarshipServices(req.file, req.body).then((data) => {
       console.log('=========== result of data ==========', data)
       res.status(200).send(data)
     }).catch((err) => {
@@ -50,22 +56,52 @@ function insertFile (req, res) {
 }
 
 
-// the inser scrolarship 
 
-function insertScholarship(req, res, next) {
-  console.log('========== the request =========', req)
-  console.log('=========== the request data =====',req.file);
+
+// get scholarship detail 
+
+function getscholarshipDetail (req, res, next) {
+  scholarshipServices.getScholarshipServices().then((data) => {
+    console.log('----------- controller get scholarship detial ---------', data)
+    res.status(200).send(data)
+  }).catch((err) => {
+    console.log('-------- controller get scholarship detial erro -------', err)
+    res.status(400).send(err)
+  })
+}
+
+
+
+// update scholarship detail
+
+function updateScholarship (req, res, next) {
   if (!req.file) {
-    console.log('=========== file not in insert  ==============')
+    console.log('=============== file is not match =============')
   } else {
-    console.log('============= req file in the insert file ========', req.file.filename)
-    console.log('============= req file in the insert file ========', req.body.group_name)
-    questionnaireServices.fileTextInsert(req.file.filename, req.body.group_name).then((resultFileInsert) => {
-      console.log('----------- the file insert success --------',resultFileInsert )
-      res.status(200).send(resultFileInsert)
+    console.log('==================controller request file  =========', req.file)
+    console.log('==================controller body content  =========', req.body)
+    console.log('==================controller params  =========', req.params)
+    scholarshipServices.updateScholarshipServices(req.params, req.file, req.body).then((data) => {
+      console.log('=========== result of data ==========', data)
+      res.status(200).send(data)
     }).catch((err) => {
-      console.log('=========== the insert file is error', err)
+      console.log('============= error ===========', err)
       res.status(400).send(err)
     })
   }
-  }
+}
+
+
+
+// delete scholarship detail
+
+function deleteScholarship (req, res, next) {
+  console.log('======= controllar request params =========', req.params)
+  scholarshipServices.deleteScholarshipServices(req.params).then((data) => {
+    console.log('======== controller delete result scholarship  =========', data)
+    res.status(200).send(data)
+  }).catch((err) => {
+    console.log('====== controller delete scholarship error =====', err)
+    res.status(400).send(err)
+  })
+}
