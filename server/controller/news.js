@@ -28,18 +28,18 @@ var upload = multer({ storage: storage })
 
 
 
-// the scrolarship api 
+// the expenditure api 
 
-router.post('/insertScholarship', upload.single('profile'), insertScholarship)
-router.get('/getScholarship', getscholarshipDetail)
-router.put('/updateScholarship/:id', upload.single('profile'), updateScholarship)
-router.delete('/deleteScholarship/:id', deleteScholarship)
+router.post('/insertNewsDetail', upload.single('profile'), insertNewsDetail)
+// router.get('/getNewsDetail', getNewsDetail)
+// router.put('/updateNewsDetail/:id', upload.single('profile'), updateNewsDetail)
+// router.delete('/deleteNewsDetail/:id', deleteNewsDetail)
 
 
 
-// insert scholarship detail
+// insert expenditure detail
 
-function insertScholarship (req, res) {
+function insertNewsDetail (req, res) {
   if (!req.file) {
     console.log('=============== file is not match =============')
   } else {
@@ -49,7 +49,7 @@ function insertScholarship (req, res) {
     console.log('=========== req headers ===========', req.headers.jwttoken)
     // header jwt token dcrept method use and do can store id
     // ===============================
-    scholarshipServices.insertScholarshipServices(req.file, req.body, req.headers.jwttoken).then((data) => {
+    scholarshipServices.insertExpenditureServices(req.file, req.body, req.headers.jwttoken).then((data) => {
       console.log('=========== result of data ==========', data)
       res.status(200).send(data)
     }).catch((err) => {
@@ -62,14 +62,13 @@ function insertScholarship (req, res) {
 
 
 
-// get scholarship detail 
+// get expenditure detail 
 
-function getscholarshipDetail (req, res, next) {
+function getExpenditureDetails (req, res, next) {
   // ======================================
-  
   // header jwt token dcrept method use and do can store id
   // =======================================
-  scholarshipServices.getScholarshipServices().then((data) => {
+  scholarshipServices.getExpenditureServices().then((data) => {
     console.log('----------- controller get scholarship detial ---------', data)
     res.status(200).send(data)
   }).catch((err) => {
@@ -80,9 +79,9 @@ function getscholarshipDetail (req, res, next) {
 
 
 
-// update scholarship detail
+// update expenditure detail
 
-function updateScholarship (req, res, next) {
+function updateExpenditure (req, res, next) {
   if (!req.file) {
     console.log('=============== file is not match =============')
   } else {
@@ -93,7 +92,7 @@ function updateScholarship (req, res, next) {
     console.log('=========== req headers ===========', req.headers.jwttoken)
     // header jwt token dcrept method use and do can store id
     // =======================================
-    scholarshipServices.updateScholarshipServices(req.params, req.file, req.body , req.headers.jwttoken).then((data) => {
+    scholarshipServices.updateExpenditureServices(req.params, req.file, req.body , req.headers.jwttoken).then((data) => {
       console.log('=========== result of data ==========', data)
       res.status(200).send(data)
     }).catch((err) => {
@@ -105,15 +104,15 @@ function updateScholarship (req, res, next) {
 
 
 
-// delete scholarship detail
+// delete expenditure detail
 
-function deleteScholarship (req, res, next) {
+function deleteExpenditure (req, res, next) {
   console.log('======= controllar request params =========', req.params)
   // =======================================
   console.log('=========== req headers ===========', req.headers.jwttoken)
   // header jwt token dcrept method use and do can store id
   // ========================================
-  scholarshipServices.deleteScholarshipServices(req.params, req.headers.jwttoken).then((data) => {
+  scholarshipServices.deleteExpenditureServices(req.params, req.headers.jwttoken).then((data) => {
     console.log('======== controller delete result scholarship  =========', data)
     res.status(200).send(data)
   }).catch((err) => {

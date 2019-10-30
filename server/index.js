@@ -58,5 +58,6 @@ app.use(express.json());
 
 /* Insert the userAllData */
 app.use('/scholarship', require('./controller/scholarship'));
-
+app.use('/expenditure',require('./controller/expenditure'));
+app.use('/news',require('./controller/news'));
 start()
