@@ -17,6 +17,12 @@ module.exports = {
   getNewsDetailServices,
   updateNewsDetailServices,
   deleteNewsDetailServices,
+
+  // ============================= donation
+  insertDonationServices,
+  getDonationServices,
+  updateDonationServices,
+  deleteDonationsServices,
 };
 
   //  ============================================================ scholarship
@@ -229,6 +235,83 @@ module.exports = {
     console.log('========= the updated id of user ==========', newsUpdateId)
     return new Promise((resolve, reject) => {
       queryDelete = 'UPDATE news set status='+true+' , updated_by="'+ newsUpdateId +'" where id='+newsParamsId.id;
+      console.log('======', queryDelete)
+      db.query(queryDelete, (err, result, field) => {
+        console.log('----- news detial db ------', result)
+        if (err)
+          reject('error')
+        resolve(result)
+      })
+    })
+  }
+
+
+
+
+
+
+
+
+
+  // =================================================== donation
+
+  // the insert donation
+  function insertDonationServices (file , donationDetail , created_id) {
+    console.log('=========== services ====== file name ===== ', file)
+    console.log('=========== services ====== detail ===== ', donationDetail)
+    console.log('========== create id =============', created_id)
+    return new Promise((resolve, reject) => {
+      console.log('========== promis inside =======')
+      console.log('--------the file --------',file)
+      queryInsert = 'INSERT INTO donations (member_id, amount, address, created_by) VALUES(' + donationDetail.member_id +' ,"' + donationDetail.amount +'","' + donationDetail.address +'",'+ created_id +')';
+      console.log('============== the query of data ===============', queryInsert)
+      db.query(queryInsert, (err, result, field) => {
+        console.log('---------- result of data----------', result)
+        if(err)
+          reject(err)
+        resolve(result)
+      })
+    })
+  }
+
+  // the get data of donation
+  function getDonationServices () {
+    return new Promise((resolve, reject) => {
+      query = 'select * from donations where status='+0;
+      db.query(query, (err, result, field) => {
+        console.log('----- donations detial db ------', result)
+        if (err)
+          reject(err)
+        resolve(result)
+      })
+    })
+  }
+
+  // the update of donation detail
+  function updateDonationServices (donationParamsId , donationExfile , donationDetails , donations_updated_id) {
+    console.log('=========== services ====== params ==updated_by=== ' , donationParamsId.id)
+    console.log('=========== services ====== file ===== ', donationExfile.filename)
+    console.log('=========== services ====== donations detial ===== ', donationDetails)
+    console.log('===========updated by user id jwttoken ===============', donations_updated_id)
+    return new Promise((resolve, reject) => {
+      console.log('========== promis inside =======')
+      console.log('--------the file --------', donationExfile)
+      queryUpdate = 'UPDATE donations set amount='+ donationDetails.amount +' , address="'+ donationDetails.address +'" , updated_by='+ donations_updated_id +' , member_id="'+ donationDetails.member_id +'" where id='+donationParamsId.id;
+      console.log('============== the query of data ===============', queryUpdate)
+      db.query(queryUpdate, (err, result, field) => {
+        console.log('---------- result of data----------', result)
+        if(err)
+          reject(err)
+        resolve(result)
+      })
+    })
+  }
+
+  // the delete of donations details
+  function deleteDonationsServices (donationParamsId, donations_updated_id) {
+    console.log('========= the updated id of user ==========', donations_updated_id)
+    return new Promise((resolve, reject) => {
+      queryDelete = 'UPDATE donations set status='+true+' , updated_by="'+ donations_updated_id +'" where id='+donationParamsId.id;
       console.log('======', queryDelete)
       db.query(queryDelete, (err, result, field) => {
         console.log('----- news detial db ------', result)
