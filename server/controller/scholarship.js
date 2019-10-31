@@ -38,7 +38,6 @@ router.delete('/deleteScholarship/:id', deleteScholarship)
 
 
 // insert scholarship detail
-
 function insertScholarship (req, res) {
   if (!req.file) {
     console.log('=============== file is not match =============')
@@ -59,11 +58,7 @@ function insertScholarship (req, res) {
   }
 }
 
-
-
-
 // get scholarship detail 
-
 function getscholarshipDetail (req, res, next) {
   // ======================================
   
@@ -78,10 +73,7 @@ function getscholarshipDetail (req, res, next) {
   })
 }
 
-
-
 // update scholarship detail
-
 function updateScholarship (req, res, next) {
   if (!req.file) {
     console.log('=============== file is not match =============')
@@ -103,10 +95,7 @@ function updateScholarship (req, res, next) {
   }
 }
 
-
-
 // delete scholarship detail
-
 function deleteScholarship (req, res, next) {
   console.log('======= controllar request params =========', req.params)
   // =======================================

@@ -31,14 +31,13 @@ var upload = multer({ storage: storage })
 // the expenditure api 
 
 router.post('/insertNewsDetail', upload.single('profile'), insertNewsDetail)
-// router.get('/getNewsDetail', getNewsDetail)
-// router.put('/updateNewsDetail/:id', upload.single('profile'), updateNewsDetail)
-// router.delete('/deleteNewsDetail/:id', deleteNewsDetail)
+router.get('/getNewsDetail', getNewsDetail)
+router.put('/updateNewsDetail/:id', upload.single('profile'), updateNewsDetail)
+router.delete('/deleteNewsDetail/:id', deleteNewsDetail)
 
 
 
-// insert expenditure detail
-
+// insert news detail
 function insertNewsDetail (req, res) {
   if (!req.file) {
     console.log('=============== file is not match =============')
@@ -49,7 +48,7 @@ function insertNewsDetail (req, res) {
     console.log('=========== req headers ===========', req.headers.jwttoken)
     // header jwt token dcrept method use and do can store id
     // ===============================
-    scholarshipServices.insertExpenditureServices(req.file, req.body, req.headers.jwttoken).then((data) => {
+    scholarshipServices.insertNewsDetailServices(req.file, req.body, req.headers.jwttoken).then((data) => {
       console.log('=========== result of data ==========', data)
       res.status(200).send(data)
     }).catch((err) => {
@@ -59,29 +58,22 @@ function insertNewsDetail (req, res) {
   }
 }
 
-
-
-
-// get expenditure detail 
-
-function getExpenditureDetails (req, res, next) {
+// get news detail 
+function getNewsDetail (req, res, next) {
   // ======================================
   // header jwt token dcrept method use and do can store id
   // =======================================
-  scholarshipServices.getExpenditureServices().then((data) => {
-    console.log('----------- controller get scholarship detial ---------', data)
+  scholarshipServices.getNewsDetailServices().then((data) => {
+    console.log('----------- controller get news detial ---------', data)
     res.status(200).send(data)
   }).catch((err) => {
-    console.log('-------- controller get scholarship detial erro -------', err)
+    console.log('-------- controller get news detial erro -------', err)
     res.status(400).send(err)
   })
 }
 
-
-
-// update expenditure detail
-
-function updateExpenditure (req, res, next) {
+// update news detail
+function updateNewsDetail (req, res, next) {
   if (!req.file) {
     console.log('=============== file is not match =============')
   } else {
@@ -92,7 +84,7 @@ function updateExpenditure (req, res, next) {
     console.log('=========== req headers ===========', req.headers.jwttoken)
     // header jwt token dcrept method use and do can store id
     // =======================================
-    scholarshipServices.updateExpenditureServices(req.params, req.file, req.body , req.headers.jwttoken).then((data) => {
+    scholarshipServices.updateNewsDetailServices(req.params, req.file, req.body , req.headers.jwttoken).then((data) => {
       console.log('=========== result of data ==========', data)
       res.status(200).send(data)
     }).catch((err) => {
@@ -102,21 +94,18 @@ function updateExpenditure (req, res, next) {
   }
 }
 
-
-
-// delete expenditure detail
-
-function deleteExpenditure (req, res, next) {
+// delete news detail
+function deleteNewsDetail (req, res, next) {
   console.log('======= controllar request params =========', req.params)
   // =======================================
   console.log('=========== req headers ===========', req.headers.jwttoken)
   // header jwt token dcrept method use and do can store id
   // ========================================
-  scholarshipServices.deleteExpenditureServices(req.params, req.headers.jwttoken).then((data) => {
-    console.log('======== controller delete result scholarship  =========', data)
+  scholarshipServices.deleteNewsDetailServices(req.params, req.headers.jwttoken).then((data) => {
+    console.log('======== controller delete result news  =========', data)
     res.status(200).send(data)
   }).catch((err) => {
-    console.log('====== controller delete scholarship error =====', err)
+    console.log('====== controller delete news error =====', err)
     res.status(400).send(err)
   })
 }

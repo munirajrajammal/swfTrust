@@ -38,7 +38,6 @@ router.delete('/deleteExpenditure/:id', deleteExpenditure)
 
 
 // insert expenditure detail
-
 function insertExpenditure (req, res) {
   if (!req.file) {
     console.log('=============== file is not match =============')
@@ -59,28 +58,21 @@ function insertExpenditure (req, res) {
   }
 }
 
-
-
-
 // get expenditure detail 
-
 function getExpenditureDetails (req, res, next) {
   // ======================================
   // header jwt token dcrept method use and do can store id
   // =======================================
   scholarshipServices.getExpenditureServices().then((data) => {
-    console.log('----------- controller get scholarship detial ---------', data)
+    console.log('----------- controller get expenditure detial ---------', data)
     res.status(200).send(data)
   }).catch((err) => {
-    console.log('-------- controller get scholarship detial erro -------', err)
+    console.log('-------- controller get expenditure detial erro -------', err)
     res.status(400).send(err)
   })
 }
 
-
-
 // update expenditure detail
-
 function updateExpenditure (req, res, next) {
   if (!req.file) {
     console.log('=============== file is not match =============')
@@ -102,10 +94,7 @@ function updateExpenditure (req, res, next) {
   }
 }
 
-
-
 // delete expenditure detail
-
 function deleteExpenditure (req, res, next) {
   console.log('======= controllar request params =========', req.params)
   // =======================================
@@ -113,10 +102,10 @@ function deleteExpenditure (req, res, next) {
   // header jwt token dcrept method use and do can store id
   // ========================================
   scholarshipServices.deleteExpenditureServices(req.params, req.headers.jwttoken).then((data) => {
-    console.log('======== controller delete result scholarship  =========', data)
+    console.log('======== controller delete result expenditure  =========', data)
     res.status(200).send(data)
   }).catch((err) => {
-    console.log('====== controller delete scholarship error =====', err)
+    console.log('====== controller delete expenditure error =====', err)
     res.status(400).send(err)
   })
 }

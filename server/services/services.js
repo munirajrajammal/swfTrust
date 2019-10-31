@@ -11,6 +11,12 @@ module.exports = {
   getExpenditureServices,
   updateExpenditureServices,
   deleteExpenditureServices,
+
+  // ============================== news
+  insertNewsDetailServices,
+  getNewsDetailServices,
+  updateNewsDetailServices,
+  deleteNewsDetailServices,
 };
 
   //  ============================================================ scholarship
@@ -149,7 +155,83 @@ module.exports = {
       queryDelete = 'UPDATE expenditure set status='+true+' , updated_by="'+expenditure_update_id+'" where id='+expenditure_params.id;
       console.log('======', queryDelete)
       db.query(queryDelete, (err, result, field) => {
-        console.log('----- scholarship detial db ------', result)
+        console.log('----- expenditure detial db ------', result)
+        if (err)
+          reject('error')
+        resolve(result)
+      })
+    })
+  }
+
+
+
+
+
+
+
+
+  // =============================================== news
+
+  // the create news details
+  function insertNewsDetailServices (newsFile , newsBody , newsTokenId) {
+    console.log('=========== services ====== file name ===== ', newsFile.filename)
+    console.log('=========== services ====== content ===== ', newsBody)
+    console.log('========== create id =============', newsTokenId)
+    return new Promise((resolve, reject) => {
+      console.log('========== promis inside =======')
+      console.log('--------the file --------',newsFile)
+      queryInsert = 'INSERT INTO news(title, content, file_name, created_by) VALUES("' + newsBody.title +'" ,"' + newsBody.content +'","' + newsFile.filename +'",'+newsTokenId+')';
+      console.log('============== the query of data ===============', queryInsert)
+      db.query(queryInsert, (err, result, field) => {
+        console.log('---------- result of data----------', result)
+        if(err)
+          reject(err)
+        resolve(result)
+      })
+    })
+  }
+
+  // the get news detail 
+  function getNewsDetailServices () {
+    return new Promise((resolve, reject) => {
+      query = 'select * from news where status='+0;
+      db.query(query, (err, result, field) => {
+        console.log('----- news detial db ------', result)
+        if (err)
+          reject(err)
+        resolve(result)
+      })
+    })
+  }
+
+  // the update news detail
+  function updateNewsDetailServices (newsParams , newsFileInsert , newsBody , newsTokenId) {
+    console.log('=========== services ====== params ==updated_by=== ' , newsParams.id)
+    console.log('=========== services ====== file ===== ', newsFileInsert.filename)
+    console.log('=========== services ====== news detial ===== ', newsBody)
+    console.log('===========updated by user id jwttoken ===============', newsTokenId)
+    return new Promise((resolve, reject) => {
+      console.log('========== promis inside =======')
+      console.log('--------the file --------',newsFileInsert)
+      queryUpdate = 'UPDATE news set title="'+newsBody.title+'" , content="'+newsBody.content+'" , file_name="'+newsFileInsert.filename+'" , updated_by="'+newsTokenId+'" where id='+newsParams.id;
+      console.log('============== the query of data ===============', queryUpdate)
+      db.query(queryUpdate, (err, result, field) => {
+        console.log('---------- result of data----------', result)
+        if(err)
+          reject(err)
+        resolve(result)
+      })
+    })
+  }
+
+  // the delete news detail
+  function deleteNewsDetailServices (newsParamsId, newsUpdateId) {
+    console.log('========= the updated id of user ==========', newsUpdateId)
+    return new Promise((resolve, reject) => {
+      queryDelete = 'UPDATE news set status='+true+' , updated_by="'+ newsUpdateId +'" where id='+newsParamsId.id;
+      console.log('======', queryDelete)
+      db.query(queryDelete, (err, result, field) => {
+        console.log('----- news detial db ------', result)
         if (err)
           reject('error')
         resolve(result)
