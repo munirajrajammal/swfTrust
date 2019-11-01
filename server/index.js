@@ -61,5 +61,6 @@ app.use('/scholarship', require('./controller/scholarship'));
 app.use('/expenditure',require('./controller/expenditure'));
 app.use('/news',require('./controller/news'));
 app.use('/donations',require('./controller/donation'));
-
+app.use('/testimonial',require('./controller/testimonial'));
+app.use('/popupTest',require('./controller/popupTest'));
 start()

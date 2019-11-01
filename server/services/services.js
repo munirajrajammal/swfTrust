@@ -23,6 +23,25 @@ module.exports = {
   getDonationServices,
   updateDonationServices,
   deleteDonationsServices,
+
+  // ============================= blogs
+  insertBlogsDetailServices,
+  getBlogsDetailServices,
+  updateBlogsDetailServices,
+  deleteBlogsDetailServices,
+
+  // ============================= testimonial
+  insertTestimonialServices,
+  getTestimonialServices,
+  updateTestimonialServices,
+  deleteTestimonialServices,
+
+  // ============================= popupTest
+  insertPopupTestServices,
+  getPopupTestServices,
+  updatePopupTestServices,
+  deletePopupTestServices,
+
 };
 
   //  ============================================================ scholarship
@@ -315,6 +334,232 @@ module.exports = {
       console.log('======', queryDelete)
       db.query(queryDelete, (err, result, field) => {
         console.log('----- news detial db ------', result)
+        if (err)
+          reject('error')
+        resolve(result)
+      })
+    })
+  }
+
+
+
+
+
+
+
+
+  // ============================================== blogs
+
+  // the insert of blogs detail
+  function insertBlogsDetailServices (blogsFile , blogsContent , blogsCreatedId) {
+    console.log('=========== services ====== file name ===== ', blogsFile.filename)
+    console.log('=========== services ====== detail ===== ', blogsContent)
+    console.log('========== create id =============', blogsCreatedId)
+    return new Promise((resolve, reject) => {
+      console.log('========== promis inside =======')
+      console.log('--------the file --------', blogsFile)
+      queryInsert = 'INSERT INTO blogs (title, content, tags, cat, created_by) VALUES("' + blogsContent.title +'" ,"' + blogsContent.content +'","' + blogsContent.tags +'", "'+ blogsFile.filename +'" ,'+ blogsCreatedId +')';
+      console.log('============== the query of data ===============', queryInsert)
+      db.query(queryInsert, (err, result, field) => {
+        console.log('---------- result of data----------', result)
+        if(err)
+          reject(err)
+        resolve(result)
+      })
+    })
+  }
+
+  // the get of data blog
+  function getBlogsDetailServices () {
+    return new Promise((resolve, reject) => {
+      query = 'select * from blogs where status='+0;
+      db.query(query, (err, result, field) => {
+        console.log('----- blogs detial db ------', result)
+        if (err)
+          reject(err)
+        resolve(result)
+      })
+    })
+  }
+
+  // the update of blogs data
+  function updateBlogsDetailServices (blogParamsId , blogFile , blogContent , blogUpdateId) {
+    console.log('=========== services ====== params ==updated_by=== ' , blogParamsId.id)
+    console.log('=========== services ====== file ===== ', blogFile.filename)
+    console.log('=========== services ====== blogs detial ===== ', blogContent)
+    console.log('===========updated by user id jwttoken ===============', blogUpdateId)
+    return new Promise((resolve, reject) => {
+      console.log('========== promis inside =======')
+      console.log('--------the file --------', blogFile)
+      queryUpdate = 'UPDATE blogs set title="'+ blogContent.title +'" , content="'+ blogContent.content +'" , tags="'+ blogContent.tag +'" , cat="'+ blogFile.filename +'" ,  updated_by='+ blogUpdateId +' where id='+blogParamsId.id;
+      console.log('============== the query of data ===============', queryUpdate)
+      db.query(queryUpdate, (err, result, field) => {
+        console.log('---------- result of data----------', result)
+        if(err)
+          reject(err)
+        resolve(result)
+      })
+    })
+  }
+
+  // the delete of blogs data
+  function deleteBlogsDetailServices (blogParamsId , blog_update_id) {
+    console.log('========= the updated id of user ==========', blog_update_id)
+    return new Promise((resolve, reject) => {
+      queryDelete = 'UPDATE blogs set status='+true+' , updated_by="'+ blog_update_id +'" where id='+blogParamsId.id;
+      console.log('======', queryDelete)
+      db.query(queryDelete, (err, result, field) => {
+        console.log('----- news detial db ------', result)
+        if (err)
+          reject('error')
+        resolve(result)
+      })
+    })
+  }
+
+
+
+
+
+
+
+  // ========================================= Testimonial
+  // the insert testimonial data
+  function insertTestimonialServices (testimonialFile , testimonialContent , testimonialCreateId) {
+    console.log('=========== services ====== file name ===== ', testimonialFile.filename)
+    console.log('=========== services ====== detail ===== ', testimonialContent)
+    console.log('========== create id =============', testimonialCreateId)
+    return new Promise((resolve, reject) => {
+      console.log('========== promis inside =======')
+      console.log('--------the file --------', testimonialFile)
+      queryInsert = 'INSERT INTO testimonial (client_name, message, ratings, created_by) VALUES("' + testimonialContent.clientName +'" ,"' + testimonialContent.message +'","' + testimonialContent.ratings +'", '+ testimonialCreateId +')';
+      console.log('============== the query of data ===============', queryInsert)
+      db.query(queryInsert, (err, result, field) => {
+        console.log('---------- result of data----------', result)
+        if(err)
+          reject(err)
+        resolve(result)
+      })
+    })
+  }
+
+  // the get testimonial detail 
+  function getTestimonialServices () {
+    return new Promise((resolve, reject) => {
+      query = 'select * from testimonial where status='+0;
+      db.query(query, (err, result, field) => {
+        console.log('----- blogs detial db ------', result)
+        if (err)
+          reject(err)
+        resolve(result)
+      })
+    })
+  }
+
+  // the update testimonial detail
+  function updateTestimonialServices (testimonialParamsId , testimonialFile , testimonialContent , testimonialUpdateId) {
+    console.log('=========== services ====== params ==updated_by=== ' , testimonialParamsId.id)
+    console.log('=========== services ====== file ===== ', testimonialFile)
+    console.log('=========== services ====== testimonial detial ===== ', testimonialContent)
+    console.log('===========updated by user id jwttoken ===============', testimonialUpdateId)
+    return new Promise((resolve, reject) => {
+      console.log('========== promis inside =======')
+      console.log('--------the file --------', testimonialFile)
+      queryUpdate = 'UPDATE testimonial set client_name="'+ testimonialContent.clientName +'" , message="'+ testimonialContent.message +'" , ratings="'+ testimonialContent.ratings +'" ,  updated_by='+ testimonialUpdateId +' where id='+testimonialParamsId.id;
+      console.log('============== the query of data ===============', queryUpdate)
+      db.query(queryUpdate, (err, result, field) => {
+        console.log('---------- result of data----------', result)
+        if(err)
+          reject(err)
+        resolve(result)
+      })
+    })
+  }
+
+  // the delete testimonial detail
+  function deleteTestimonialServices (testimonialParamsId , testimonialUpdatedId) {
+    console.log('========= the updated id of user ==========', testimonialUpdatedId)
+    return new Promise((resolve, reject) => {
+      queryDelete = 'UPDATE testimonial set status='+true+' , updated_by="'+ testimonialUpdatedId +'" where id='+testimonialParamsId.id;
+      console.log('======', queryDelete)
+      db.query(queryDelete, (err, result, field) => {
+        console.log('----- testimonial detial db ------', result)
+        if (err)
+          reject('error')
+        resolve(result)
+      })
+    })
+  }
+
+
+
+
+
+
+
+
+
+  // ============================================ popup
+  // the insert popup data 
+  function insertPopupTestServices (popupFile , popupContent , popupCreateTokenId) {
+    console.log('=========== services ====== file name ===== ', popupFile)
+    console.log('=========== services ====== detail ===== ', popupContent)
+    console.log('========== create id =============', popupCreateTokenId)
+    return new Promise((resolve, reject) => {
+      console.log('========== promis inside =======')
+      console.log('--------the file --------', popupFile)
+      queryInsert = 'INSERT INTO popup (member_name, active, created_by) VALUES("' + popupContent.memberName +'" ,' + popupContent.actived +', '+ popupCreateTokenId +')';
+      console.log('============== the query of data ===============', queryInsert)
+      db.query(queryInsert, (err, result, field) => {
+        console.log('---------- result of data----------', result)
+        if(err)
+          reject(err)
+        resolve(result)
+      })
+    })
+  }
+
+  // the get popup data
+  function getPopupTestServices () {
+    return new Promise((resolve, reject) => {
+      query = 'select * from popup where status='+0;
+      db.query(query, (err, result, field) => {
+        console.log('----- popup detial db ------', result)
+        if (err)
+          reject(err)
+        resolve(result)
+      })
+    })
+  }
+
+  // the update popup data
+  function updatePopupTestServices (popupParamsId , popupFile , popupContent , popupUpdateId) {
+    console.log('=========== services ====== params ==updated_by=== ' , popupParamsId.id)
+    console.log('=========== services ====== file ===== ', popupFile)
+    console.log('=========== services ====== popup detial ===== ', popupContent)
+    console.log('===========updated by user id jwttoken ===============', popupUpdateId)
+    return new Promise((resolve, reject) => {
+      console.log('========== promis inside =======')
+      console.log('--------the file --------', popupFile)
+      queryUpdate = 'UPDATE popup set member_name="'+ popupContent.memberName +'" , active='+ popupContent.actived +' ,  updated_by='+ popupUpdateId +' where id='+popupParamsId.id;
+      console.log('============== the query of data ===============', queryUpdate)
+      db.query(queryUpdate, (err, result, field) => {
+        console.log('---------- result of data----------', result)
+        if(err)
+          reject(err)
+        resolve(result)
+      })
+    })
+  }
+
+  // the delete of popup detail
+  function deletePopupTestServices (popupParamsId , popupUpdatedId) {
+    console.log('========= the updated id of user ==========', popupUpdatedId.id)
+    return new Promise((resolve, reject) => {
+      queryDelete = 'UPDATE popup set status='+true+' , updated_by="'+ popupUpdatedId +'" where id='+popupParamsId.id;
+      console.log('======', queryDelete)
+      db.query(queryDelete, (err, result, field) => {
+        console.log('----- popup detial db ------', result)
         if (err)
           reject('error')
         resolve(result)
