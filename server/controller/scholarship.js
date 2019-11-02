@@ -31,7 +31,7 @@ var upload = multer({ storage: storage })
 // the scrolarship api 
 
 router.post('/insertScholarship', upload.single('profile'), insertScholarship)
-router.get('/getScholarship', getscholarshipDetail)
+router.post('/getScholarship', getscholarshipDetail)
 router.put('/updateScholarship/:id', upload.single('profile'), updateScholarship)
 router.delete('/deleteScholarship/:id', deleteScholarship)
 
@@ -60,17 +60,44 @@ function insertScholarship (req, res) {
 
 // get scholarship detail 
 function getscholarshipDetail (req, res, next) {
-  // ======================================
-  
-  // header jwt token dcrept method use and do can store id
-  // =======================================
-  scholarshipServices.getScholarshipServices().then((data) => {
-    console.log('----------- controller get scholarship detial ---------', data)
-    res.status(200).send(data)
-  }).catch((err) => {
-    console.log('-------- controller get scholarship detial erro -------', err)
-    res.status(400).send(err)
-  })
+  console.log('--------------')
+  console.log('--------------the get body ------------', req.query.from, req.query.to)
+  var dateFrom = req.query.from;
+  var dateTo = req.query.to;
+  if (dateFrom && dateTo) {
+    // ======================================
+    // header jwt token dcrept method use and do can store id
+    // =======================================
+    scholarshipServices.getScholarshipParticularDateServices(dateFrom , dateTo).then((data) => {
+      console.log('----------- controller get scholarship detial ---------', data)
+      res.status(200).send(data)
+    }).catch((err) => {
+      console.log('-------- controller get scholarship detial erro -------', err)
+      res.status(400).send(err)
+    })
+  } else if (dateFrom) {
+    // ======================================
+    // header jwt token dcrept method use and do can store id
+    // =======================================
+    scholarshipServices.getScholarshipTodayDateServices(dateFrom).then((data) => {
+      console.log('----------- controller get scholarship detial ---------', data)
+      res.status(200).send(data)
+    }).catch((err) => {
+      console.log('-------- controller get scholarship detial erro -------', err)
+      res.status(400).send(err)
+    })
+  } else {
+    // ======================================
+    // header jwt token dcrept method use and do can store id
+    // =======================================
+    scholarshipServices.getScholarshipServices().then((data) => {
+      console.log('----------- controller get scholarship detial ---------', data)
+      res.status(200).send(data)
+    }).catch((err) => {
+      console.log('-------- controller get scholarship detial erro -------', err)
+      res.status(400).send(err)
+    })
+  }
 }
 
 // update scholarship detail

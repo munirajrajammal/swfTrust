@@ -5,6 +5,9 @@ module.exports = {
   getScholarshipServices,
   updateScholarshipServices,
   deleteScholarshipServices,
+  // ------- date
+  getScholarshipParticularDateServices,
+  getScholarshipTodayDateServices,
 
   // ============================== expenditure
   insertExpenditureServices,
@@ -84,6 +87,32 @@ function insertScholarshipServices(file, body, create_id) {
 function getScholarshipServices() {
   return new Promise((resolve, reject) => {
     query = 'select * from scholarship where status=' + 0;
+    db.query(query, (err, result, field) => {
+      console.log('----- scholarship detial db ------', result)
+      if (err)
+        reject("error")
+      resolve(result)
+    })
+  })
+}
+
+function getScholarshipParticularDateServices (fromDate , toDate) {
+  return new Promise((resolve, reject) => {
+    query = 'select * from scholarship where status='+0+' && created_at>="'+fromDate+'" && created_at<="'+toDate+'"';
+    // query = 'select * from scholarship where status=' + 0;
+    db.query(query, (err, result, field) => {
+      console.log('----- scholarship detial db ------', result)
+      if (err)
+        reject("error")
+      resolve(result)
+    })
+  })
+}
+function getScholarshipTodayDateServices (fromDate) {
+  console.log('-------- from date', fromDate)
+  return new Promise((resolve, reject) => {
+    query = 'select * from scholarship where status='+0+' && DATE(created_at)=DATE(NOW())';
+    // query = 'select * from scholarship where status=' + 0;
     db.query(query, (err, result, field) => {
       console.log('----- scholarship detial db ------', result)
       if (err)
@@ -181,6 +210,7 @@ function getExpenditureParticularDateServices (fromDate, toDate) {
 }
 
 function getExpenditureTodayDateServices (fromDate) {
+  console.log('=========== from date', fromDate)
   return new Promise((resolve, reject) => {
     query = 'select * from expenditure where status='+0+' && DATE(created_at)=DATE(NOW())';
     db.query(query, (err, result, field) => {
