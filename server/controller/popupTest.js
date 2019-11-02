@@ -31,7 +31,7 @@ var upload = multer({ storage: storage })
 // the expenditure api 
 
 router.post('/insertPopupTest', upload.single('profile'), insertPopupTest)
-router.get('/getPopupTest', getPopupTest)
+router.post('/getPopupTest', getPopupTest)
 router.put('/updatePopupTest/:id', upload.single('profile'), updatePopupTest)
 router.delete('/deletePopupTest/:id', deletePopupTest)
 
@@ -60,16 +60,44 @@ function insertPopupTest (req, res) {
 
 // get popup detail 
 function getPopupTest (req, res, next) {
-  // ======================================
-  // header jwt token dcrept method use and do can store id
-  // =======================================
-  scholarshipServices.getPopupTestServices().then((data) => {
-    console.log('----------- controller get popup detial ---------', data)
-    res.status(200).send(data)
-  }).catch((err) => {
-    console.log('-------- controller get popup detial erro -------', err)
-    res.status(400).send(err)
-  })
+  console.log('--------------')
+  console.log('--------------the get body ------------', req.query.from, req.query.to)
+  var dateFrom = req.query.from;
+  var dateTo = req.query.to;
+  if (dateFrom && dateTo) {
+    // ======================================
+    // header jwt token dcrept method use and do can store id
+    // =======================================
+    scholarshipServices.getPopupTestParticularDateServices(dateFrom, dateTo).then((data) => {
+      console.log('----------- controller get popup detial ---------', data)
+      res.status(200).send(data)
+    }).catch((err) => {
+      console.log('-------- controller get popup detial erro -------', err)
+      res.status(400).send(err)
+    })
+  } else if (dateFrom) {
+    // ======================================
+    // header jwt token dcrept method use and do can store id
+    // =======================================
+    scholarshipServices.getPopupTestTodayDateServices(dateFrom).then((data) => {
+      console.log('----------- controller get popup detial ---------', data)
+      res.status(200).send(data)
+    }).catch((err) => {
+      console.log('-------- controller get popup detial erro -------', err)
+      res.status(400).send(err)
+    })
+  } else {
+    // ======================================
+    // header jwt token dcrept method use and do can store id
+    // =======================================
+    scholarshipServices.getPopupTestServices().then((data) => {
+      console.log('----------- controller get popup detial ---------', data)
+      res.status(200).send(data)
+    }).catch((err) => {
+      console.log('-------- controller get popup detial erro -------', err)
+      res.status(400).send(err)
+    })
+  }
 }
 
 // update popup detail

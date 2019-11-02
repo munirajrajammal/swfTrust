@@ -53,6 +53,9 @@ module.exports = {
   getPopupTestServices,
   updatePopupTestServices,
   deletePopupTestServices,
+  // ------ date
+  getPopupTestParticularDateServices,
+  getPopupTestTodayDateServices,
 
 };
 
@@ -649,6 +652,32 @@ function getPopupTestServices() {
   })
 }
 
+function getPopupTestParticularDateServices (fromDate ,toDate) {
+  return new Promise((resolve, reject) => {
+    query = 'select * from popup where status='+0+' && created_at>="'+fromDate+'" && created_at<="'+toDate+'"';
+    // query = 'select * from popup where status=' + 0;
+    db.query(query, (err, result, field) => {
+      console.log('----- popup detial db ------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+function getPopupTestTodayDateServices (fromDate) {
+  console.log('====== from date', fromDate)
+  return new Promise((resolve, reject) => {
+    query = 'select * from popup testimonial where status='+0+' && DATE(created_at)=DATE(NOW())';
+    // query = 'select * from popup where status=' + 0;
+    db.query(query, (err, result, field) => {
+      console.log('----- popup detial db ------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
 // the update popup data
 function updatePopupTestServices(popupParamsId, popupFile, popupContent, popupUpdateId) {
   console.log('=========== services ====== params ==updated_by=== ', popupParamsId.id)
