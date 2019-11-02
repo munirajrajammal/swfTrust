@@ -16,14 +16,16 @@ module.exports = router
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null,'./static')
+    cb(null, './static')
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now()+ path.extname(file.originalname))
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
   }
 })
 
-var upload = multer({ storage: storage })
+var upload = multer({
+  storage: storage
+})
 
 
 
@@ -31,14 +33,14 @@ var upload = multer({ storage: storage })
 // the expenditure api 
 
 router.post('/insertDonation', upload.single('profile'), insertDonation)
-router.get('/getDonation', getDonation)
+router.post('/getDonation', getDonation)
 router.put('/updateDonation/:id', upload.single('profile'), updateDonation)
 router.delete('/deleteDonation/:id', deleteDonation)
 
 
 
 // insert donation detail
-function insertDonation (req, res) {
+function insertDonation(req, res) {
   if (!req.file) {
     console.log('=============== file is not match =============')
   } else {
@@ -59,21 +61,49 @@ function insertDonation (req, res) {
 }
 
 // get donation detail 
-function getDonation (req, res, next) {
-  // ======================================
-  // header jwt token dcrept method use and do can store id
-  // =======================================
-  scholarshipServices.getDonationServices().then((data) => {
-    console.log('----------- controller get donation detial ---------', data)
-    res.status(200).send(data)
-  }).catch((err) => {
-    console.log('-------- controller get donations detial erro -------', err)
-    res.status(400).send(err)
-  })
+function getDonation(req, res, next) {
+  console.log('--------------')
+  console.log('--------------the get body ------------', req.query.from, req.query.to)
+  var dateFrom = req.query.from;
+  var dateTo = req.query.to;
+  if (dateFrom && dateTo) {
+    // ======================================
+    // header jwt token dcrept method use and do can store id
+    // =======================================
+    scholarshipServices.getDonationParticularServices(dateFrom , dateTo).then((data) => {
+      console.log('----------- controller get donation detial ---------', data)
+      res.status(200).send(data)
+    }).catch((err) => {
+      console.log('-------- controller get donations detial erro -------', err)
+      res.status(400).send(err)
+    })
+  } else if (dateFrom) {
+    // ======================================
+    // header jwt token dcrept method use and do can store id
+    // =======================================
+    scholarshipServices.getDonationOneDayServices(dateFrom).then((data) => {
+      console.log('----------- controller get donation detial ---------', data)
+      res.status(200).send(data)
+    }).catch((err) => {
+      console.log('-------- controller get donations detial erro -------', err)
+      res.status(400).send(err)
+    })
+  } else {
+    // ======================================
+    // header jwt token dcrept method use and do can store id
+    // =======================================
+    scholarshipServices.getDonationServices().then((data) => {
+      console.log('----------- controller get donation detial ---------', data)
+      res.status(200).send(data)
+    }).catch((err) => {
+      console.log('-------- controller get donations detial erro -------', err)
+      res.status(400).send(err)
+    })
+  }
 }
 
 // update donation detail
-function updateDonation (req, res, next) {
+function updateDonation(req, res, next) {
   if (!req.file) {
     console.log('=============== file is not match =============')
   } else {
@@ -84,7 +114,7 @@ function updateDonation (req, res, next) {
     console.log('=========== req headers ===========', req.headers.jwttoken)
     // header jwt token dcrept method use and do can store id
     // =======================================
-    scholarshipServices.updateDonationServices(req.params, req.file, req.body , req.headers.jwttoken).then((data) => {
+    scholarshipServices.updateDonationServices(req.params, req.file, req.body, req.headers.jwttoken).then((data) => {
       console.log('=========== result of data ==========', data)
       res.status(200).send(data)
     }).catch((err) => {
@@ -95,7 +125,7 @@ function updateDonation (req, res, next) {
 }
 
 // delete donations detail
-function deleteDonation (req, res, next) {
+function deleteDonation(req, res, next) {
   console.log('======= controllar request params =========', req.params)
   // =======================================
   console.log('=========== req headers ===========', req.headers.jwttoken)

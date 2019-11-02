@@ -60,6 +60,7 @@ function insertBlogsDetail (req, res) {
 
 // get blogs detail 
 function getBlogsDetail (req, res, next) {
+  
   // ======================================
   // header jwt token dcrept method use and do can store id
   // =======================================
