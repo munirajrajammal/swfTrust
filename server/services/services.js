@@ -44,6 +44,9 @@ module.exports = {
   getTestimonialServices,
   updateTestimonialServices,
   deleteTestimonialServices,
+  // ------ date 
+  getTestimonialParticularDateServices,
+  getTestimonialTodayDateServices,
 
   // ============================= popupTest
   insertPopupTestServices,
@@ -534,6 +537,33 @@ function insertTestimonialServices(testimonialFile, testimonialContent, testimon
 function getTestimonialServices() {
   return new Promise((resolve, reject) => {
     query = 'select * from testimonial where status=' + 0;
+    db.query(query, (err, result, field) => {
+      console.log('----- blogs detial db ------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+function getTestimonialParticularDateServices (fromDate , toDate) {
+  return new Promise((resolve, reject) => {
+    query = 'select * from testimonial where status='+0+' && created_at>="'+fromDate+'" && created_at<="'+toDate+'"';
+    // query = 'select * from testimonial where status=' + 0;
+    db.query(query, (err, result, field) => {
+      console.log('----- blogs detial db ------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+function getTestimonialTodayDateServices (fromDate) {
+  console.log('====== from date', fromDate)
+  return new Promise((resolve, reject) => {
+    query = 'select * from testimonial where status='+0+' && DATE(created_at)=DATE(NOW())';
+    // query = 'select * from testimonial where status=' + 0;
     db.query(query, (err, result, field) => {
       console.log('----- blogs detial db ------', result)
       if (err)

@@ -31,7 +31,7 @@ var upload = multer({ storage: storage })
 // the expenditure api 
 
 router.post('/insertTestimonial', upload.single('profile'), insertTestimonial)
-router.get('/getTestimonial', getTestimonial)
+router.post('/getTestimonial', getTestimonial)
 router.put('/updateTestimonial/:id', upload.single('profile'), updateTestimonial)
 router.delete('/deleteTestimonial/:id', deleteTestimonial)
 
@@ -60,16 +60,44 @@ function insertTestimonial (req, res) {
 
 // get testimonial detail 
 function getTestimonial (req, res, next) {
-  // ======================================
-  // header jwt token dcrept method use and do can store id
-  // =======================================
-  scholarshipServices.getTestimonialServices().then((data) => {
-    console.log('----------- controller get blogs detial ---------', data)
-    res.status(200).send(data)
-  }).catch((err) => {
-    console.log('-------- controller get blogs detial erro -------', err)
-    res.status(400).send(err)
-  })
+  console.log('--------------')
+  console.log('--------------the get body ------------', req.query.from, req.query.to)
+  var dateFrom = req.query.from;
+  var dateTo = req.query.to;
+  if (dateFrom && dateTo) {
+    // ======================================
+    // header jwt token dcrept method use and do can store id
+    // =======================================
+    scholarshipServices.getTestimonialParticularDateServices(dateFrom, dateTo).then((data) => {
+      console.log('----------- controller get blogs detial ---------', data)
+      res.status(200).send(data)
+    }).catch((err) => {
+      console.log('-------- controller get blogs detial erro -------', err)
+      res.status(400).send(err)
+    })
+  } else if (dateFrom) {
+    // ======================================
+    // header jwt token dcrept method use and do can store id
+    // =======================================
+    scholarshipServices.getTestimonialTodayDateServices(dateFrom).then((data) => {
+      console.log('----------- controller get blogs detial ---------', data)
+      res.status(200).send(data)
+    }).catch((err) => {
+      console.log('-------- controller get blogs detial erro -------', err)
+      res.status(400).send(err)
+    })
+  } else {
+    // ======================================
+    // header jwt token dcrept method use and do can store id
+    // =======================================
+    scholarshipServices.getTestimonialServices().then((data) => {
+      console.log('----------- controller get blogs detial ---------', data)
+      res.status(200).send(data)
+    }).catch((err) => {
+      console.log('-------- controller get blogs detial erro -------', err)
+      res.status(400).send(err)
+    })
+  }
 }
 
 // update testimonial detail
