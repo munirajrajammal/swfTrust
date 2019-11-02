@@ -20,6 +20,9 @@ module.exports = {
   getNewsDetailServices,
   updateNewsDetailServices,
   deleteNewsDetailServices,
+  // ------ date
+  getNewsDetailParticularDateServices,
+  getNewsDetailTodayDateServices,
 
   // ============================= donation
   insertDonationServices,
@@ -250,6 +253,31 @@ function insertNewsDetailServices(newsFile, newsBody, newsTokenId) {
 function getNewsDetailServices() {
   return new Promise((resolve, reject) => {
     query = 'select * from news where status=' + 0;
+    db.query(query, (err, result, field) => {
+      console.log('----- news detial db ------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+function getNewsDetailParticularDateServices (fromDate , toDate) {
+  return new Promise((resolve, reject) => {
+    query = 'select * from news where status='+0+' && created_at>="'+fromDate+'" && created_at<="'+toDate+'"';
+    db.query(query, (err, result, field) => {
+      console.log('----- news detial db ------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+function getNewsDetailTodayDateServices (fromDate) {
+  console.log('=============', fromDate)
+  return new Promise((resolve, reject) => {
+    query = 'select * from news where status='+0+' && DATE(created_at)=DATE(NOW())';
     db.query(query, (err, result, field) => {
       console.log('----- news detial db ------', result)
       if (err)
