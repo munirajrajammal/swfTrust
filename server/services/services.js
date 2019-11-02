@@ -11,6 +11,9 @@ module.exports = {
   getExpenditureServices,
   updateExpenditureServices,
   deleteExpenditureServices,
+  // ------- date 
+  getExpenditureParticularDateServices,
+  getExpenditureTodayDateServices,
 
   // ============================== news
   insertNewsDetailServices,
@@ -147,6 +150,30 @@ function insertExpenditureServices(file, body, create_id) {
 function getExpenditureServices() {
   return new Promise((resolve, reject) => {
     query = 'select * from expenditure where status=' + 0;
+    db.query(query, (err, result, field) => {
+      console.log('----- expenditure detial db ------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+function getExpenditureParticularDateServices (fromDate, toDate) {
+  return new Promise((resolve, reject) => {
+    query = 'select * from expenditure where status='+0+' && created_at>="'+fromDate+'" && created_at<="'+toDate+'"';
+    db.query(query, (err, result, field) => {
+      console.log('----- expenditure detial db ------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+function getExpenditureTodayDateServices (fromDate) {
+  return new Promise((resolve, reject) => {
+    query = 'select * from expenditure where status='+0+' && DATE(created_at)=DATE(NOW())';
     db.query(query, (err, result, field) => {
       console.log('----- expenditure detial db ------', result)
       if (err)

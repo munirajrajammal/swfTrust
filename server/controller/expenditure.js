@@ -31,7 +31,7 @@ var upload = multer({ storage: storage })
 // the expenditure api 
 
 router.post('/insertExpenditure', upload.single('profile'), insertExpenditure)
-router.get('/getExpenditure', getExpenditureDetails)
+router.post('/getExpenditure', getExpenditureDetails)
 router.put('/updateExpenditure/:id', upload.single('profile'), updateExpenditure)
 router.delete('/deleteExpenditure/:id', deleteExpenditure)
 
@@ -60,16 +60,44 @@ function insertExpenditure (req, res) {
 
 // get expenditure detail 
 function getExpenditureDetails (req, res, next) {
-  // ======================================
-  // header jwt token dcrept method use and do can store id
-  // =======================================
-  scholarshipServices.getExpenditureServices().then((data) => {
-    console.log('----------- controller get expenditure detial ---------', data)
-    res.status(200).send(data)
-  }).catch((err) => {
-    console.log('-------- controller get expenditure detial erro -------', err)
-    res.status(400).send(err)
-  })
+  console.log('--------------')
+  console.log('--------------the get body ------------', req.query.from, req.query.to)
+  var dateFrom = req.query.from;
+  var dateTo = req.query.to;
+  if (dateFrom && dateTo) {
+    // ======================================
+    // header jwt token dcrept method use and do can store id
+    // =======================================
+    scholarshipServices.getExpenditureParticularDateServices(dateFrom , dateTo).then((data) => {
+      console.log('----------- controller get expenditure detial ---------', data)
+      res.status(200).send(data)
+    }).catch((err) => {
+      console.log('-------- controller get expenditure detial erro -------', err)
+      res.status(400).send(err)
+    })
+  } else if (dateFrom) {
+    // ======================================
+    // header jwt token dcrept method use and do can store id
+    // =======================================
+    scholarshipServices.getExpenditureTodayDateServices(dateFrom).then((data) => {
+      console.log('----------- controller get expenditure detial ---------', data)
+      res.status(200).send(data)
+    }).catch((err) => {
+      console.log('-------- controller get expenditure detial erro -------', err)
+      res.status(400).send(err)
+    })
+  } else {
+    // ======================================
+    // header jwt token dcrept method use and do can store id
+    // =======================================
+    scholarshipServices.getExpenditureServices().then((data) => {
+      console.log('----------- controller get expenditure detial ---------', data)
+      res.status(200).send(data)
+    }).catch((err) => {
+      console.log('-------- controller get expenditure detial erro -------', err)
+      res.status(400).send(err)
+    })
+  }
 }
 
 // update expenditure detail
