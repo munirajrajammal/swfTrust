@@ -39,6 +39,7 @@ router.delete('/deleteScholarship/:id', deleteScholarship)
 
 // insert scholarship detail
 function insertScholarship (req, res) {
+  // console.log('===============', req)
   if (!req.file) {
     console.log('=============== file is not match =============')
   } else {

@@ -97,9 +97,10 @@ function getScholarshipServices() {
 }
 
 function getScholarshipParticularDateServices (fromDate , toDate) {
+  console.log('======== from date ---- to date====', fromDate, toDate)
   return new Promise((resolve, reject) => {
-    query = 'select * from scholarship where status='+0+' && created_at>="'+fromDate+'" && created_at<="'+toDate+'"';
-    // query = 'select * from scholarship where status=' + 0;
+    query='select * from scholarship where status='+0+'&& DATE(updated_at)>="'+fromDate+'"&& DATE(updated_at)<="'+toDate+'"';
+    console.log('======= query of select data =====', query)
     db.query(query, (err, result, field) => {
       console.log('----- scholarship detial db ------', result)
       if (err)
@@ -108,10 +109,11 @@ function getScholarshipParticularDateServices (fromDate , toDate) {
     })
   })
 }
+
 function getScholarshipTodayDateServices (fromDate) {
   console.log('-------- from date', fromDate)
   return new Promise((resolve, reject) => {
-    query = 'select * from scholarship where status='+0+' && DATE(created_at)=DATE(NOW())';
+    query = 'select * from scholarship where status='+0+' && DATE(updated_at)="'+fromDate+'"';
     // query = 'select * from scholarship where status=' + 0;
     db.query(query, (err, result, field) => {
       console.log('----- scholarship detial db ------', result)
@@ -199,7 +201,8 @@ function getExpenditureServices() {
 
 function getExpenditureParticularDateServices (fromDate, toDate) {
   return new Promise((resolve, reject) => {
-    query = 'select * from expenditure where status='+0+' && created_at>="'+fromDate+'" && created_at<="'+toDate+'"';
+    query='select * from expenditure where status='+0+'&& DATE(updated_at)>="'+fromDate+'"&& DATE(updated_at)<="'+toDate+'"';
+    // query = 'select * from expenditure where status='+0+' && updated_at>="'+fromDate+'" && updated_at<="'+toDate+'"';
     db.query(query, (err, result, field) => {
       console.log('----- expenditure detial db ------', result)
       if (err)
@@ -212,7 +215,7 @@ function getExpenditureParticularDateServices (fromDate, toDate) {
 function getExpenditureTodayDateServices (fromDate) {
   console.log('=========== from date', fromDate)
   return new Promise((resolve, reject) => {
-    query = 'select * from expenditure where status='+0+' && DATE(created_at)=DATE(NOW())';
+    query = 'select * from expenditure where status='+0+' && DATE(updated_at)="'+fromDate+'"';
     db.query(query, (err, result, field) => {
       console.log('----- expenditure detial db ------', result)
       if (err)
@@ -300,7 +303,8 @@ function getNewsDetailServices() {
 
 function getNewsDetailParticularDateServices (fromDate , toDate) {
   return new Promise((resolve, reject) => {
-    query = 'select * from news where status='+0+' && created_at>="'+fromDate+'" && created_at<="'+toDate+'"';
+    query='select * from news where status='+0+'&& DATE(updated_at)>="'+fromDate+'"&& DATE(updated_at)<="'+toDate+'"';
+    // query = 'select * from news where status='+0+' && updated_at>="'+fromDate+'" && updated_at<="'+toDate+'"';
     db.query(query, (err, result, field) => {
       console.log('----- news detial db ------', result)
       if (err)
@@ -313,7 +317,7 @@ function getNewsDetailParticularDateServices (fromDate , toDate) {
 function getNewsDetailTodayDateServices (fromDate) {
   console.log('=============', fromDate)
   return new Promise((resolve, reject) => {
-    query = 'select * from news where status='+0+' && DATE(created_at)=DATE(NOW())';
+    query = 'select * from news where status='+0+' && DATE(updated_at)="'+fromDate+'"';
     db.query(query, (err, result, field) => {
       console.log('----- news detial db ------', result)
       if (err)
@@ -403,7 +407,8 @@ function getDonationServices() {
 function getDonationParticularServices (fromDate , toDate) {
   return new Promise((resolve, reject) => {
     console.log('======= from date --- to date ======', fromDate , toDate)
-    query = 'select * from donations where status='+0+' && created_at>="'+fromDate+'" && created_at<="'+toDate+'"';
+    query='select * from donations where status='+0+'&& DATE(updated_at)>="'+fromDate+'"&& DATE(updated_at)<="'+toDate+'"';
+    // query = 'select * from donations where status='+0+' && updated_at>="'+fromDate+'" && updated_at<="'+toDate+'"';
     console.log('--------------', query)
     db.query(query, (err, result, field) => {
       console.log('----- donations detial db ------', result)
@@ -417,7 +422,7 @@ function getDonationParticularServices (fromDate , toDate) {
 function getDonationOneDayServices (fromDate) {
   return new Promise((resolve, reject) => {
     console.log('======= from date --- to date ======', fromDate)
-    query = 'select * from donations where status='+0+' && DATE(created_at)=DATE(NOW())';
+    query = 'select * from donations where status='+0+' && DATE(updated_at)="'+fromDate+'"';
     console.log('--------------', query)
     db.query(query, (err, result, field) => {
       console.log('----- donations detial db ------', result)
@@ -581,7 +586,8 @@ function getTestimonialServices() {
 
 function getTestimonialParticularDateServices (fromDate , toDate) {
   return new Promise((resolve, reject) => {
-    query = 'select * from testimonial where status='+0+' && created_at>="'+fromDate+'" && created_at<="'+toDate+'"';
+    query='select * from testimonial where status='+0+'&& DATE(updated_at)>="'+fromDate+'"&& DATE(updated_at)<="'+toDate+'"';
+    // query = 'select * from testimonial where status='+0+' && updated_at>="'+fromDate+'" && updated_at<="'+toDate+'"';
     // query = 'select * from testimonial where status=' + 0;
     db.query(query, (err, result, field) => {
       console.log('----- blogs detial db ------', result)
@@ -595,7 +601,7 @@ function getTestimonialParticularDateServices (fromDate , toDate) {
 function getTestimonialTodayDateServices (fromDate) {
   console.log('====== from date', fromDate)
   return new Promise((resolve, reject) => {
-    query = 'select * from testimonial where status='+0+' && DATE(created_at)=DATE(NOW())';
+    query = 'select * from testimonial where status='+0+' && DATE(updated_at)="'+fromDate+'"';
     // query = 'select * from testimonial where status=' + 0;
     db.query(query, (err, result, field) => {
       console.log('----- blogs detial db ------', result)
@@ -684,7 +690,8 @@ function getPopupTestServices() {
 
 function getPopupTestParticularDateServices (fromDate ,toDate) {
   return new Promise((resolve, reject) => {
-    query = 'select * from popup where status='+0+' && created_at>="'+fromDate+'" && created_at<="'+toDate+'"';
+    query='select * from popup where status='+0+'&& DATE(updated_at)>="'+fromDate+'"&& DATE(updated_at)<="'+toDate+'"';
+    // query = 'select * from popup where status='+0+' && updated_at>="'+fromDate+'" && updated_at<="'+toDate+'"';
     // query = 'select * from popup where status=' + 0;
     db.query(query, (err, result, field) => {
       console.log('----- popup detial db ------', result)
@@ -698,7 +705,7 @@ function getPopupTestParticularDateServices (fromDate ,toDate) {
 function getPopupTestTodayDateServices (fromDate) {
   console.log('====== from date', fromDate)
   return new Promise((resolve, reject) => {
-    query = 'select * from popup testimonial where status='+0+' && DATE(created_at)=DATE(NOW())';
+    query = 'select * from popup testimonial where status='+0+' && DATE(updated_at)="'+fromDate+'"';
     // query = 'select * from popup where status=' + 0;
     db.query(query, (err, result, field) => {
       console.log('----- popup detial db ------', result)
