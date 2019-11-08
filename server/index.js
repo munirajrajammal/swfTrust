@@ -63,4 +63,7 @@ app.use('/news',require('./controller/news'));
 app.use('/donations',require('./controller/donation'));
 app.use('/testimonial',require('./controller/testimonial'));
 app.use('/popupTest',require('./controller/popupTest'));
+app.use('/coreTeam',require('./controller/coreTeam'));
+app.use('/bannerCard',require('./controller/bannerCard'));
+
 start()

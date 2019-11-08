@@ -1,6 +1,7 @@
 <template>
   <div>
-    <nav
+    <nuxt/>
+    <!-- <nav
       class="navbar header has-shadow is-primary"
       role="navigation"
       aria-label="main navigation"
@@ -17,7 +18,7 @@
           >
         </a>
 
-        <div class="navbar-burger">
+        <div class="navbar-burger"> 
           <span />
           <span />
           <span />
@@ -48,27 +49,27 @@
       <div class="container column is-10">
         <nuxt />
       </div>
-    </section>
+    </section> -->
   </div>
 </template>
 
 <script>
 export default {
-  data () {
-    return {
-      items: [
-        {
-          title: 'Home',
-          icon: 'home',
-          to: { name: 'index' }
-        },
-        {
-          title: 'Inspire',
-          icon: 'lightbulb',
-          to: { name: 'inspire' }
-        }
-      ]
-    }
-  }
+//   data () {
+//     return {
+//       items: [
+//         {
+//           title: 'Home',
+//           icon: 'home',
+//           to: { name: 'index' }
+//         },
+//         {
+//           title: 'Inspire',
+//           icon: 'lightbulb',
+//           to: { name: 'inspire' }
+//         }
+//       ]
+//     }
+//   }
 }
 </script>

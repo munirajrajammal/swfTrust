@@ -3,16 +3,12 @@
     <div class="card">
       <header class="card-header">
         <p class="card-header-title has-text-grey">
-          {{ title }}
+          muni
         </p>
       </header>
       <div class="card-content">
         <div class="content has-text-centered">
-          <b-icon
-            :icon="icon"
-            size="is-large"
-            type="is-primary"
-          />
+          <p>hhhhhhhhhhh</p>
         </div>
       </div>
       <footer class="card-footer">
@@ -28,15 +24,15 @@
 
 <script>
 export default {
-  props: {
-    title: {
-      type: String,
-      required: true
-    },
-    icon: {
-      type: String,
-      required: true
-    }
-  }
+  // props: {
+  //   title: {
+  //     type: String,
+  //     required: true
+  //   },
+  //   icon: {
+  //     type: String,
+  //     required: true
+  //   }
+  // }
 }
 </script>

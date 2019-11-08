@@ -60,6 +60,22 @@ module.exports = {
   getPopupTestParticularDateServices,
   getPopupTestTodayDateServices,
 
+  // =========================== core team
+  insertCoreTeamServices,
+  getCoreTeamParticularDateServices,
+  getCoreTeamTodayDateServices,
+  getCoreTeamServices,
+  updateCoreTeamServices,
+  deleteCoreTeamServices,
+
+  // =========================== banner section
+  insertBannerServices,
+  getBannerParticularDateServices,
+  getBannerTodayDateServices,
+  getBannerServices,
+  updateBannerServices,
+  deleteBannerServices,
+
 };
 
 //  ============================================================ scholarship
@@ -96,10 +112,10 @@ function getScholarshipServices() {
   })
 }
 
-function getScholarshipParticularDateServices (fromDate , toDate) {
+function getScholarshipParticularDateServices(fromDate, toDate) {
   console.log('======== from date ---- to date====', fromDate, toDate)
   return new Promise((resolve, reject) => {
-    query='select * from scholarship where status='+0+'&& DATE(updated_at)>="'+fromDate+'"&& DATE(updated_at)<="'+toDate+'"';
+    query = 'select * from scholarship where status=' + 0 + '&& DATE(updated_at)>="' + fromDate + '"&& DATE(updated_at)<="' + toDate + '"';
     console.log('======= query of select data =====', query)
     db.query(query, (err, result, field) => {
       console.log('----- scholarship detial db ------', result)
@@ -110,10 +126,10 @@ function getScholarshipParticularDateServices (fromDate , toDate) {
   })
 }
 
-function getScholarshipTodayDateServices (fromDate) {
+function getScholarshipTodayDateServices(fromDate) {
   console.log('-------- from date', fromDate)
   return new Promise((resolve, reject) => {
-    query = 'select * from scholarship where status='+0+' && DATE(updated_at)="'+fromDate+'"';
+    query = 'select * from scholarship where status=' + 0 + ' && DATE(updated_at)="' + fromDate + '"';
     // query = 'select * from scholarship where status=' + 0;
     db.query(query, (err, result, field) => {
       console.log('----- scholarship detial db ------', result)
@@ -199,9 +215,9 @@ function getExpenditureServices() {
   })
 }
 
-function getExpenditureParticularDateServices (fromDate, toDate) {
+function getExpenditureParticularDateServices(fromDate, toDate) {
   return new Promise((resolve, reject) => {
-    query='select * from expenditure where status='+0+'&& DATE(updated_at)>="'+fromDate+'"&& DATE(updated_at)<="'+toDate+'"';
+    query = 'select * from expenditure where status=' + 0 + '&& DATE(updated_at)>="' + fromDate + '"&& DATE(updated_at)<="' + toDate + '"';
     // query = 'select * from expenditure where status='+0+' && updated_at>="'+fromDate+'" && updated_at<="'+toDate+'"';
     db.query(query, (err, result, field) => {
       console.log('----- expenditure detial db ------', result)
@@ -212,10 +228,10 @@ function getExpenditureParticularDateServices (fromDate, toDate) {
   })
 }
 
-function getExpenditureTodayDateServices (fromDate) {
+function getExpenditureTodayDateServices(fromDate) {
   console.log('=========== from date', fromDate)
   return new Promise((resolve, reject) => {
-    query = 'select * from expenditure where status='+0+' && DATE(updated_at)="'+fromDate+'"';
+    query = 'select * from expenditure where status=' + 0 + ' && DATE(updated_at)="' + fromDate + '"';
     db.query(query, (err, result, field) => {
       console.log('----- expenditure detial db ------', result)
       if (err)
@@ -301,9 +317,9 @@ function getNewsDetailServices() {
   })
 }
 
-function getNewsDetailParticularDateServices (fromDate , toDate) {
+function getNewsDetailParticularDateServices(fromDate, toDate) {
   return new Promise((resolve, reject) => {
-    query='select * from news where status='+0+'&& DATE(updated_at)>="'+fromDate+'"&& DATE(updated_at)<="'+toDate+'"';
+    query = 'select * from news where status=' + 0 + '&& DATE(updated_at)>="' + fromDate + '"&& DATE(updated_at)<="' + toDate + '"';
     // query = 'select * from news where status='+0+' && updated_at>="'+fromDate+'" && updated_at<="'+toDate+'"';
     db.query(query, (err, result, field) => {
       console.log('----- news detial db ------', result)
@@ -314,10 +330,10 @@ function getNewsDetailParticularDateServices (fromDate , toDate) {
   })
 }
 
-function getNewsDetailTodayDateServices (fromDate) {
+function getNewsDetailTodayDateServices(fromDate) {
   console.log('=============', fromDate)
   return new Promise((resolve, reject) => {
-    query = 'select * from news where status='+0+' && DATE(updated_at)="'+fromDate+'"';
+    query = 'select * from news where status=' + 0 + ' && DATE(updated_at)="' + fromDate + '"';
     db.query(query, (err, result, field) => {
       console.log('----- news detial db ------', result)
       if (err)
@@ -404,10 +420,10 @@ function getDonationServices() {
   })
 }
 
-function getDonationParticularServices (fromDate , toDate) {
+function getDonationParticularServices(fromDate, toDate) {
   return new Promise((resolve, reject) => {
-    console.log('======= from date --- to date ======', fromDate , toDate)
-    query='select * from donations where status='+0+'&& DATE(updated_at)>="'+fromDate+'"&& DATE(updated_at)<="'+toDate+'"';
+    console.log('======= from date --- to date ======', fromDate, toDate)
+    query = 'select * from donations where status=' + 0 + '&& DATE(updated_at)>="' + fromDate + '"&& DATE(updated_at)<="' + toDate + '"';
     // query = 'select * from donations where status='+0+' && updated_at>="'+fromDate+'" && updated_at<="'+toDate+'"';
     console.log('--------------', query)
     db.query(query, (err, result, field) => {
@@ -419,10 +435,10 @@ function getDonationParticularServices (fromDate , toDate) {
   })
 }
 
-function getDonationOneDayServices (fromDate) {
+function getDonationOneDayServices(fromDate) {
   return new Promise((resolve, reject) => {
     console.log('======= from date --- to date ======', fromDate)
-    query = 'select * from donations where status='+0+' && DATE(updated_at)="'+fromDate+'"';
+    query = 'select * from donations where status=' + 0 + ' && DATE(updated_at)="' + fromDate + '"';
     console.log('--------------', query)
     db.query(query, (err, result, field) => {
       console.log('----- donations detial db ------', result)
@@ -584,9 +600,9 @@ function getTestimonialServices() {
   })
 }
 
-function getTestimonialParticularDateServices (fromDate , toDate) {
+function getTestimonialParticularDateServices(fromDate, toDate) {
   return new Promise((resolve, reject) => {
-    query='select * from testimonial where status='+0+'&& DATE(updated_at)>="'+fromDate+'"&& DATE(updated_at)<="'+toDate+'"';
+    query = 'select * from testimonial where status=' + 0 + '&& DATE(updated_at)>="' + fromDate + '"&& DATE(updated_at)<="' + toDate + '"';
     // query = 'select * from testimonial where status='+0+' && updated_at>="'+fromDate+'" && updated_at<="'+toDate+'"';
     // query = 'select * from testimonial where status=' + 0;
     db.query(query, (err, result, field) => {
@@ -598,10 +614,10 @@ function getTestimonialParticularDateServices (fromDate , toDate) {
   })
 }
 
-function getTestimonialTodayDateServices (fromDate) {
+function getTestimonialTodayDateServices(fromDate) {
   console.log('====== from date', fromDate)
   return new Promise((resolve, reject) => {
-    query = 'select * from testimonial where status='+0+' && DATE(updated_at)="'+fromDate+'"';
+    query = 'select * from testimonial where status=' + 0 + ' && DATE(updated_at)="' + fromDate + '"';
     // query = 'select * from testimonial where status=' + 0;
     db.query(query, (err, result, field) => {
       console.log('----- blogs detial db ------', result)
@@ -688,9 +704,9 @@ function getPopupTestServices() {
   })
 }
 
-function getPopupTestParticularDateServices (fromDate ,toDate) {
+function getPopupTestParticularDateServices(fromDate, toDate) {
   return new Promise((resolve, reject) => {
-    query='select * from popup where status='+0+'&& DATE(updated_at)>="'+fromDate+'"&& DATE(updated_at)<="'+toDate+'"';
+    query = 'select * from popup where status=' + 0 + '&& DATE(updated_at)>="' + fromDate + '"&& DATE(updated_at)<="' + toDate + '"';
     // query = 'select * from popup where status='+0+' && updated_at>="'+fromDate+'" && updated_at<="'+toDate+'"';
     // query = 'select * from popup where status=' + 0;
     db.query(query, (err, result, field) => {
@@ -702,10 +718,10 @@ function getPopupTestParticularDateServices (fromDate ,toDate) {
   })
 }
 
-function getPopupTestTodayDateServices (fromDate) {
+function getPopupTestTodayDateServices(fromDate) {
   console.log('====== from date', fromDate)
   return new Promise((resolve, reject) => {
-    query = 'select * from popup testimonial where status='+0+' && DATE(updated_at)="'+fromDate+'"';
+    query = 'select * from popup testimonial where status=' + 0 + ' && DATE(updated_at)="' + fromDate + '"';
     // query = 'select * from popup where status=' + 0;
     db.query(query, (err, result, field) => {
       console.log('----- popup detial db ------', result)
@@ -743,6 +759,220 @@ function deletePopupTestServices(popupParamsId, popupUpdatedId) {
     console.log('======', queryDelete)
     db.query(queryDelete, (err, result, field) => {
       console.log('----- popup detial db ------', result)
+      if (err)
+        reject('error')
+      resolve(result)
+    })
+  })
+}
+
+
+
+
+
+
+
+// ============================================= core team
+
+// core team insert
+function insertCoreTeamServices(file, coreTeamBody, createTokenId) {
+  console.log('=========== services ====== file name ===== ', file.filename)
+  console.log('=========== services ====== detail ===== ', coreTeamBody)
+  console.log('========== create id =============', createTokenId)
+  return new Promise((resolve, reject) => {
+    console.log('========== promis inside =======')
+    console.log('--------the file --------', file)
+    queryInsert = 'INSERT INTO core_team (name, file_name, link, link1, link2, created_by) VALUES("' + coreTeamBody.name + '" , "' + file.filename + '", "' + coreTeamBody.link + '" ,"' + coreTeamBody.link1 + '" , "' + coreTeamBody.link2 + '" , ' + createTokenId + ' )';
+    console.log('============== the query of data ===============', queryInsert)
+    db.query(queryInsert, (err, result, field) => {
+      console.log('---------- result of data----------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+// get core team detail
+function getCoreTeamParticularDateServices(fromDate, toDate) {
+  return new Promise((resolve, reject) => {
+    query = 'select * from core_team where status=' + 0 + '&& DATE(updated_at)>="' + fromDate + '"&& DATE(updated_at)<="' + toDate + '"';
+    // query = 'select * from popup where status='+0+' && updated_at>="'+fromDate+'" && updated_at<="'+toDate+'"';
+    // query = 'select * from popup where status=' + 0;
+    db.query(query, (err, result, field) => {
+      console.log('----- core team detial db ------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+function getCoreTeamTodayDateServices(fromDate) {
+  console.log('====== from date', fromDate)
+  return new Promise((resolve, reject) => {
+    query = 'select * from core_team where status=' + 0 + ' && DATE(updated_at)="' + fromDate + '"';
+    // query = 'select * from popup where status=' + 0;
+    db.query(query, (err, result, field) => {
+      console.log('----- core team detial db ------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+function getCoreTeamServices() {
+  console.log('-------------------')
+  return new Promise((resolve, reject) => {
+    query = 'select * from core_team where status=' + 0;
+    db.query(query, (err, result, field) => {
+      console.log('----- core team detial db ------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+// update core team detail
+
+function updateCoreTeamServices(coreTeamParamsId, coreTeamFile, coreTeamContent, coreTeamUpdateId) {
+  console.log('=========== services ====== params ==updated_by=== ', coreTeamParamsId.id)
+  console.log('=========== services ====== file ===== ', coreTeamFile.filename)
+  console.log('=========== services ====== core team detial ===== ', coreTeamContent)
+  console.log('===========updated by user id jwttoken ===============', coreTeamUpdateId)
+  return new Promise((resolve, reject) => {
+    console.log('========== promis inside =======')
+    console.log('--------the file --------', coreTeamFile)
+    queryUpdate = 'UPDATE core_team set name="' + coreTeamContent.name + '", file_name="' + coreTeamFile.filename + '" , link="' + coreTeamContent.link + '", link1="' + coreTeamContent.link1 + '", link2="' + coreTeamContent.link2 + '" ,  updated_by=' + coreTeamUpdateId + ' where id=' + coreTeamParamsId.id;
+    console.log('============== the query of data ===============', queryUpdate)
+    db.query(queryUpdate, (err, result, field) => {
+      console.log('---------- result of data----------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+// delete core team detail
+
+function deleteCoreTeamServices(coreTeamParamsId, coreTeamUpdatedId) {
+  console.log('========= the updated id of user ==========', coreTeamUpdatedId)
+  return new Promise((resolve, reject) => {
+    queryDelete = 'UPDATE core_team set status=' + true + ' , updated_by="' + coreTeamUpdatedId + '" where id=' + coreTeamParamsId.id;
+    console.log('======', queryDelete)
+    db.query(queryDelete, (err, result, field) => {
+      console.log('----- core team detial db ------', result)
+      if (err)
+        reject('error')
+      resolve(result)
+    })
+  })
+}
+
+
+
+
+
+
+
+// ============================================= banner section 
+
+// insert banner section
+
+function insertBannerServices(bannerCardFile, bannerContent, createBannerTokenId) {
+  console.log('=========== services ====== file name ===== ', bannerCardFile.filename)
+  console.log('=========== services ====== detail ===== ', bannerContent)
+  console.log('========== create id =============', createBannerTokenId)
+  return new Promise((resolve, reject) => {
+    console.log('========== promis inside =======')
+    console.log('--------the file --------', bannerCardFile)
+    queryInsert = 'INSERT INTO banner (file_name, content, created_by) VALUES("' + bannerCardFile.filename + '" , "' + bannerContent.content+ '", ' + createBannerTokenId + ')';
+    console.log('============== the query of data ===============', queryInsert)
+    db.query(queryInsert, (err, result, field) => {
+      console.log('---------- result of data----------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+// get banner section 
+
+function getBannerParticularDateServices (fromDate, toDate) {
+  return new Promise((resolve, reject) => {
+    query = 'select * from banner where status=' + 0 + '&& DATE(updated_at)>="' + fromDate + '"&& DATE(updated_at)<="' + toDate + '"';
+    // query = 'select * from popup where status='+0+' && updated_at>="'+fromDate+'" && updated_at<="'+toDate+'"';
+    // query = 'select * from popup where status=' + 0;
+    db.query(query, (err, result, field) => {
+      console.log('----- banner card detial db ------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+function getBannerTodayDateServices (fromDate) {
+  console.log('====== from date', fromDate)
+  return new Promise((resolve, reject) => {
+    query = 'select * from banner where status=' + 0 + ' && DATE(updated_at)="' + fromDate + '"';
+    // query = 'select * from popup where status=' + 0;
+    db.query(query, (err, result, field) => {
+      console.log('----- banner card detial db ------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+function getBannerServices () {
+  console.log('-------------------')
+  return new Promise((resolve, reject) => {
+    query = 'select * from banner where status=' + 0;
+    db.query(query, (err, result, field) => {
+      console.log('----- banner detial db ------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+// update banner section
+
+function updateBannerServices (bannerParamsId, bannerFile, bannerContent, bannerUpdateId) {
+  console.log('=========== services ====== params ==updated_by=== ', bannerParamsId.id)
+  console.log('=========== services ====== file ===== ', bannerFile.filename)
+  console.log('=========== services ====== banner detial ===== ', bannerContent)
+  console.log('===========updated by user id jwttoken ===============', bannerUpdateId)
+  return new Promise((resolve, reject) => {
+    console.log('========== promis inside =======')
+    console.log('--------the file --------', bannerFile)
+    queryUpdate = 'UPDATE banner set file_name="' + bannerFile.filename + '", content="' + bannerContent.content + '" ,updated_by=' + bannerUpdateId + ' where id=' + bannerParamsId.id;
+    console.log('============== the query of data ===============', queryUpdate)
+    db.query(queryUpdate, (err, result, field) => {
+      console.log('---------- result of data----------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+// delete banner section
+
+function deleteBannerServices (bannerParamsId, bannerUpdatedId) {
+  console.log('========= the updated id of user ==========', bannerUpdatedId)
+  return new Promise((resolve, reject) => {
+    queryDelete = 'UPDATE banner set status=' + true + ' , updated_by="' + bannerUpdatedId + '" where id=' + bannerParamsId.id;
+    console.log('======', queryDelete)
+    db.query(queryDelete, (err, result, field) => {
+      console.log('----- banner detial db ------', result)
       if (err)
         reject('error')
       resolve(result)
