@@ -2,40 +2,33 @@
   <div class="DonateCard">
     <div>
       <div class="container">
-        <h1>DONATE</h1>
+        <h2>DONATE</h2>
         <div class="row">
-          <div class="col-sm-6">
-            <div class="row">
-              <div class="col-sm-6 acc-detail">
-                <p>Bank</p>
-                <p>A/C Name</p>
-                <p>A/C No</p>
-                <p>Branch</p>
-                <p>IFSC Code</p>
-              </div>
-              <div class="col-sm-6 acc-detail">
-                <p>: ICIC Bank</p>
-                <p>: SOCIAL WELFARE FUNDS TRUST</p>
-                <p>: 602601211741</p>
-                <p>: T-Nagar</p>
-                <p>: ICIC0006026</p>
-              </div>
-            </div>
-            <div>
-              <p>Note :</p>
-              <p>
-                Please Use The ICICI A/C Only For Indian Transaction. For Foreign Funds Contact Us
-                <br />Please Mention Your Name and Company while transferring Funds in Comments.
-              </p>
-            </div>
+          <div class="col-sm-3">
+            <ul>
+              <li>Bank</li>
+              <li>A/C Name</li>
+              <li>A/C No</li>
+              <li>Branch</li>
+              <li>IFSC Code</li>
+            </ul>
           </div>
-          <div class="col-sm-6 d-flex justify-content-center">
-            <img
-              src="https://dcrewit.com/wp-content/themes/dcrewit/assests/dcrew_logo.svg"
-              id="tato"
-            />
+          <div class="col-sm-5">
+            <ul>
+              <li>: ICICI Bank</li>
+              <li>: SOCIAL WELFARE FUNDS TRUST</li>
+              <li>: 602601211741</li>
+              <li>: T-Nagar</li>
+              <li>: ICIC0006026</li>
+            </ul>
+          </div>
+          <div class="col-sm-4">
+            <img src="../assets/img/donate (1).png" />
           </div>
         </div>
+        <h3>Note :</h3>
+        <p>Please Use The ICICI A/C Only For Indian Transaction. For Foreign Funds Contact Us</p>
+        <p>Please Mention Your Name and Company while transferring Funds in Comments.</p>
       </div>
     </div>
   </div>
@@ -50,23 +43,54 @@ export default {
 
 <style lang="scss" scoped>
 .DonateCard {
-  margin: 5% 0%;
-}
-.container {
-  margin-top: 1%;
-  margin-bottom: 2%;
-  .row {
-    @media (max-width: 575.98px) {
-      margin-left: 0px;
-      margin-right: 0px;
+  .container {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    max-width: 1170px;
+    padding: 1.5rem;
+    h2 {
+      font-family: "Oswald", sans-serif;
+      margin: 1.5rem 0rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      font-size: 40px !important;
     }
-    #tato {
-      width: 50%;
-    }
-    .acc-detail {
+    .row {
       @media (max-width: 575.98px) {
+        margin-left: 0px;
+        margin-right: 0px;
+      }
+      #tato {
         width: 50%;
       }
+      .acc-detail {
+        @media (max-width: 575.98px) {
+          width: 50%;
+        }
+      }
+      li {
+        font-size: 24px;
+        line-height: 38px;
+        color: #000;
+        font-family: "Oswald", sans-serif;
+      }
+      .col-sm-4 {
+        img {
+          max-width: 100%;
+        }
+      }
+    }
+    h3 {
+      font-family: "Oswald", sans-serif;
+      font-size: 1rem;
+      margin-bottom: 0rem;
+      color: #777777;
+    }
+    p {
+      margin-bottom: 0rem;
+      font-family: "Roboto Condensed", sans-serif;
+      font-size: 15px;
+      color: #777777;
     }
   }
 }

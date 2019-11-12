@@ -65,5 +65,6 @@ app.use('/testimonial',require('./controller/testimonial'));
 app.use('/popupTest',require('./controller/popupTest'));
 app.use('/coreTeam',require('./controller/coreTeam'));
 app.use('/bannerCard',require('./controller/bannerCard'));
+app.use('/campaign',require('./controller/campaign'));
 
 start()

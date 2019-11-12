@@ -41,6 +41,7 @@ module.exports = {
     // Doc: https://buefy.github.io/#/documentation
     'nuxt-buefy',
     'nuxt-bootstrap-slider',
+    'bootstrap-vue/nuxt'
   ],
   /*
   ** Build configuration

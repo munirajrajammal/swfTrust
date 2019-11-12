@@ -76,6 +76,15 @@ module.exports = {
   updateBannerServices,
   deleteBannerServices,
 
+  // =========================== campaign section
+
+  insertCampaignServices,
+  getCampaignServices,
+  getcampaignParticularDateServices,
+  getcampaignTodayDateServices,
+  updateCampaignServices,
+  deleteCampaignServices
+
 };
 
 //  ============================================================ scholarship
@@ -973,6 +982,114 @@ function deleteBannerServices (bannerParamsId, bannerUpdatedId) {
     console.log('======', queryDelete)
     db.query(queryDelete, (err, result, field) => {
       console.log('----- banner detial db ------', result)
+      if (err)
+        reject('error')
+      resolve(result)
+    })
+  })
+}
+
+
+
+
+
+
+
+
+//  ============================================== campaign
+
+// insert section
+
+function insertCampaignServices (campaignCardFile, campaignContent, campaignTokenId) {
+  console.log('=========== services ====== file name ===== ', campaignCardFile.filename)
+  console.log('=========== services ====== detail ===== ', campaignContent)
+  console.log('========== create id =============', campaignTokenId)
+  return new Promise((resolve, reject) => {
+    console.log('========== promis inside =======')
+    console.log('--------the file --------', campaignCardFile)
+    queryInsert = 'INSERT INTO campaign (file_name , program_name , progress_perchentage , program_content , perpose , created_by) VALUES("' + campaignCardFile.filename + '" , "' + campaignContent.programName + '", "' + campaignContent.perchentage + '" , "'+ campaignContent.content +'" , "'+ campaignContent.perpose +'" , '+ campaignTokenId +')';
+    console.log('============== the query of data ===============', queryInsert)
+    db.query(queryInsert, (err, result, field) => {
+      console.log('---------- result of data----------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+//  get the campaign data
+
+function getCampaignServices () {
+  console.log('-------------------')
+  return new Promise((resolve, reject) => {
+    query = 'select * from campaign where status=' + 0;
+    db.query(query, (err, result, field) => {
+      console.log('----- campaign detial db ------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+function getcampaignParticularDateServices (fromDate, toDate) {
+  return new Promise((resolve, reject) => {
+    query = 'select * from campaign where status=' + 0 + '&& DATE(updated_at)>="' + fromDate + '"&& DATE(updated_at)<="' + toDate + '"';
+    // query = 'select * from popup where status='+0+' && updated_at>="'+fromDate+'" && updated_at<="'+toDate+'"';
+    // query = 'select * from popup where status=' + 0;
+    db.query(query, (err, result, field) => {
+      console.log('----- campaign detial db ------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+function getcampaignTodayDateServices (fromDate) {
+  console.log('====== from date', fromDate)
+  return new Promise((resolve, reject) => {
+    query = 'select * from campaign where status=' + 0 + ' && DATE(updated_at)="' + fromDate + '"';
+    // query = 'select * from popup where status=' + 0;
+    db.query(query, (err, result, field) => {
+      console.log('----- campaign card detial db ------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+// update of campaign
+
+function updateCampaignServices (campaignParamsId, campaignFile, campaignContent, campaignUpdateId) {
+  console.log('=========== services ====== params ==updated_by=== ', campaignParamsId.id)
+  console.log('=========== services ====== file ===== ', campaignFile.filename)
+  console.log('=========== services ====== campaign detial ===== ', campaignContent)
+  console.log('===========updated by user id jwttoken ===============', campaignUpdateId)
+  return new Promise((resolve, reject) => {
+    console.log('========== promis inside =======')
+    console.log('--------the file --------', campaignFile)
+    queryUpdate = 'UPDATE campaign set file_name="' + campaignFile.filename + '", program_name="' + campaignContent.programName + '" , progress_perchentage="' + campaignContent.perchentage + '", program_content="' + campaignContent.content + '", perpose="' + campaignContent.perpose + '" ,  updated_by=' + campaignUpdateId + ' where id=' + campaignParamsId.id;
+    console.log('============== the query of data ===============', queryUpdate)
+    db.query(queryUpdate, (err, result, field) => {
+      console.log('---------- result of data----------', result)
+      if (err)
+        reject(err)
+      resolve(result)
+    })
+  })
+}
+
+// delete of campaign section
+function deleteCampaignServices (campaignParamsId, campaignUpdatedId) {
+  console.log('========= the updated id of user ==========', campaignUpdatedId)
+  return new Promise((resolve, reject) => {
+    queryDelete = 'UPDATE campaign set status=' + true + ' , updated_by="' + campaignUpdatedId + '" where id=' + campaignParamsId.id;
+    console.log('======', queryDelete)
+    db.query(queryDelete, (err, result, field) => {
+      console.log('----- campaign detial db ------', result)
       if (err)
         reject('error')
       resolve(result)
